@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
+    <link rel="stylesheet" href="assets/css/style.css">
+    <title>Weather Tracker</title>
+</head>
+<body>
+    <header>
+        <div>
+            <h1>Weather Tracker</h1>
+        </div>
+    </header>
+    <main class="container-fluid">
+        <div class="row">
+            <div class="sidebar col-2">
+                <div class="border-bottom border-dark">
+                    <form id="city-search">
+                        <div class="mb-3">
+                            <label for="city" class="form-label fs-4">Search for a city:</label>
+                            <input type="text" id="city" name="city" class="form-control">
+                        </div>
+                        <div class="d-grid gap-2 mb-3">
+                            <button type="submit" class="btn btn-primary align-self-center">Search</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+            <div class="weather-container col-10">
+                <div class="current-weather border border-secondary h-100">
+                    
+                </div>
+                <div class="forecast">
+                    <h2>5-Day Forecast:</h2>
+                    <div class="h-100 row justify-content-between mx-auto">
+                        <div class="card col-2 bg-info">
+                            <div class="card-body">
+                                <h4 class="card-title">Day 1</h4>
+                                <p class="card-text">Temp:</p>
+                                <p class="card-text">Wind:</p>
+                            </div>
+                        </div>
+                        <div class="card col-2 bg-info">
+                            <div class="card-body">
+                                <h4 class="card-title">Day 1</h4>
+                                <p class="card-text">Temp:</p>
+                                <p class="card-text">Wind:</p>
+                            </div>
+                        </div>
+                        <div class="card col-2 bg-info">
+                            <div class="card-body">
+                                <h4 class="card-title">Day 1</h4>
+                                <p class="card-text">Temp:</p>
+                                <p class="card-text">Wind:</p>
+                            </div>
+                        </div>
+                        <div class="card col-2 bg-info">
+                            <div class="card-body">
+                                <h4 class="card-title">Day 1</h4>
+                                <p class="card-text">Temp:</p>
+                                <p class="card-text">Wind:</p>
+                            </div>
+                        </div>
+                        <div class="card col-2 bg-info">
+                            <div class="card-body">
+                                <h4 class="card-title">Day 1</h4>
+                                <p class="card-text">Temp:</p>
+                                <p class="card-text">Wind:</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+</body>
+<script src="assets/js/script.js"></script>
+</html>
