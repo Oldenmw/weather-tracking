@@ -7,20 +7,27 @@ var currentWeatherEl = document.querySelector("#current-weather");
 var formEventHandler = function(event) {
     event.preventDefault();
     var nameText = cityInputEl.value.trim();
-    getWeatherInfo(nameText);
+    getCityCoords(nameText);
 
     cityInputEl.value = "";
 };
 
 cityFormEl.addEventListener("submit", formEventHandler)
 
-var getWeatherInfo = function(cityName) {
-    fetch("https://api.openweathermap.org/data/2.5/weather?q=" + cityName + "&units=imperial&appid=" + apiKey).then(function(response) {
+var getWeatherInfo = function(lat, lon, cityName) {
+    fetch("http://api.openweathermap.org/data/2.5/onecall?lat=" + lat + "&lon=" + lon + "&units=imperial&appid=" + apiKey).then(function(response) {
         response.json().then(function(data) {
             displayCurrentWeather(data, cityName);
         });
     });
 };
+var getCityCoords = function(cityName) {
+    fetch("https://api.openweathermap.org/data/2.5/weather?q=" + cityName + "&units=imperial&appid=" + apiKey).then(function(response) {
+        response.json().then(function(data) {
+            getWeatherInfo(data.coord.lat, data.coord.lon, cityName)
+        });
+    });
+}
 
 var displayCurrentWeather = function(data, city) {
     currentWeatherEl.innerHTML = "";
@@ -32,18 +39,18 @@ var displayCurrentWeather = function(data, city) {
     currentWeatherEl.appendChild(headerEl);
 
     var infoEl = document.createElement("p");
-    infoEl.innerText = "Temp: " + data.main.temp + "°F";
+    infoEl.innerText = "Temp: " + data.current.temp + "°F";
     currentWeatherEl.appendChild(infoEl);
 
     var infoEl = document.createElement("p");
-    infoEl.innerText = "Wind: " + data.wind.speed + " MPH";
+    infoEl.innerText = "Wind: " + data.current.wind_speed + " MPH";
     currentWeatherEl.appendChild(infoEl);
 
     var infoEl = document.createElement("p");
-    infoEl.innerText = "Humidity: " + data.main.humidity + "%";
+    infoEl.innerText = "Humidity: " + data.current.humidity + "%";
     currentWeatherEl.appendChild(infoEl);
 
     var infoEl = document.createElement("p");
-    infoEl.innerText = "UV Index: " + data.wind.speed;
+    infoEl.innerText = "UV Index: " + data.current.uvi;
     currentWeatherEl.appendChild(infoEl);
 };
