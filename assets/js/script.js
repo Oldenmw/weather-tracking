@@ -1,7 +1,7 @@
 var apiKey = "d92ced05b52c75363d286d99b7c4f774"
 var cityFormEl = document.querySelector("#city-search");
 var cityInputEl = document.querySelector("#city");
-var currentDate = dayjs().format("DD/MM/YYYY");
+var currentDate = dayjs().format("MM/DD/YYYY");
 var currentWeatherEl = document.querySelector("#current-weather");
 
 var formEventHandler = function(event) {
@@ -18,6 +18,7 @@ var getWeatherInfo = function(lat, lon, cityName) {
     fetch("http://api.openweathermap.org/data/2.5/onecall?lat=" + lat + "&lon=" + lon + "&units=imperial&appid=" + apiKey).then(function(response) {
         response.json().then(function(data) {
             displayCurrentWeather(data, cityName);
+            weatherForecast(data);
         });
     });
 };
@@ -54,3 +55,11 @@ var displayCurrentWeather = function(data, city) {
     infoEl.innerText = "UV Index: " + data.current.uvi;
     currentWeatherEl.appendChild(infoEl);
 };
+
+var weatherForecast = function(data) {
+    for (i = 0; i < 5; i++) {
+        var forecastDay = dayjs().add((i + 1), "day").format("MM/DD/YYYY");
+        var boxEl = document.querySelector("#day-" + i);
+        boxEl.innerHTML = '<h4 class="card-title">' + forecastDay + '</h4><p class="card-text">Temp: ' + data.daily[i].temp.day +'°F</p><p class="card-text">Wind: ' + data.daily[i].wind_speed + 'MPH</p><p class="card-text">Humidity: ' + data.daily[i].humidity + '%</p>';
+    }
+}
