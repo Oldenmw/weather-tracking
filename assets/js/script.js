@@ -3,6 +3,7 @@ var cityFormEl = document.querySelector("#city-search");
 var cityInputEl = document.querySelector("#city");
 var currentDate = dayjs().format("MM/DD/YYYY");
 var currentWeatherEl = document.querySelector("#current-weather");
+var savedCities = [];
 
 var formEventHandler = function(event) {
     event.preventDefault();
@@ -19,6 +20,12 @@ var getWeatherInfo = function(lat, lon, cityName) {
         response.json().then(function(data) {
             displayCurrentWeather(data, cityName);
             weatherForecast(data);
+
+            if (!savedCities.find(m => m === cityName)) {
+                savedCities.push(cityName);
+                saveCity(cityName);
+                console.log("yes");
+            }
         });
     });
 };
@@ -63,3 +70,15 @@ var weatherForecast = function(data) {
         boxEl.innerHTML = '<h4 class="card-title">' + forecastDay + '</h4><p class="card-text">Temp: ' + data.daily[i].temp.day +'°F</p><p class="card-text">Wind: ' + data.daily[i].wind_speed + 'MPH</p><p class="card-text">Humidity: ' + data.daily[i].humidity + '%</p>';
     }
 }
+
+var saveCity = function(cityName) {
+    var sidebarButtonEl = document.querySelector("#saved-buttons");
+
+    var cityButtonEl = document.createElement("button");
+    cityButtonEl.setAttribute("class", "btn btn-secondary");
+    cityButtonEl.setAttribute("id", cityName)
+    cityButtonEl.textContent = cityName;
+    cityButtonEl.addEventListener("click", function() {getCityCoords(cityName)});
+
+    sidebarButtonEl.appendChild(cityButtonEl);
+};
