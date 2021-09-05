@@ -3,7 +3,6 @@ var cityFormEl = document.querySelector("#city-search");
 var cityInputEl = document.querySelector("#city");
 var currentDate = dayjs().format("MM/DD/YYYY");
 var currentWeatherEl = document.querySelector("#current-weather");
-var savedCities = [];
 
 var formEventHandler = function(event) {
     event.preventDefault();
@@ -24,8 +23,9 @@ var getWeatherInfo = function(lat, lon, cityName) {
             if (!savedCities.find(m => m === cityName)) {
                 savedCities.push(cityName);
                 saveCity(cityName);
-                console.log("yes");
             }
+
+            storeButtons();
         });
     });
 };
@@ -82,3 +82,24 @@ var saveCity = function(cityName) {
 
     sidebarButtonEl.appendChild(cityButtonEl);
 };
+
+var storeButtons = function () {
+    var citiesString = JSON.stringify(savedCities);
+    localStorage.setItem("buttons", citiesString);
+}
+
+var loadButtons = function() {
+    var citiesString = localStorage.getItem("buttons");
+
+    if (!citiesString) {
+        savedCities = [];
+    }
+    else {
+        savedCities = JSON.parse(citiesString);
+        for (i = 0; i < savedCities.length; i++) {
+            saveCity(savedCities[i]);
+        }
+    };
+};
+
+loadButtons();
