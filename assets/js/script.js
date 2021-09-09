@@ -42,6 +42,14 @@ var getCityCoords = function(cityName) {
         response.json().then(function(data) {
             getWeatherInfo(data.coord.lat, data.coord.lon, cityName)
         });
+    })catch(function(error) {
+        currentWeatherEl.innerHTML = "";
+        currentWeatherEl.setAttribute("class", "current-weather border border-secondary");
+        
+        var headerEl = document.createElement("h3");
+        headerEl.innerText = "There was an error finding the weather!";
+        headerEl.setAttribute("class", "fs-3");
+        currentWeatherEl.appendChild(headerEl);
     });
 }
 
