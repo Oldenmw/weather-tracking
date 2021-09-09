@@ -27,6 +27,14 @@ var getWeatherInfo = function(lat, lon, cityName) {
 
             storeButtons();
         });
+    }).catch(function(error) {
+        currentWeatherEl.innerHTML = "";
+        currentWeatherEl.setAttribute("class", "current-weather border border-secondary");
+        
+        var headerEl = document.createElement("h3");
+        headerEl.innerText = "There was an error finding the weather!";
+        headerEl.setAttribute("class", "fs-3");
+        currentWeatherEl.appendChild(headerEl);
     });
 };
 var getCityCoords = function(cityName) {
