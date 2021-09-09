@@ -15,7 +15,7 @@ var formEventHandler = function(event) {
 cityFormEl.addEventListener("submit", formEventHandler)
 
 var getWeatherInfo = function(lat, lon, cityName) {
-    fetch("http://api.openweathermap.org/data/2.5/onecall?lat=" + lat + "&lon=" + lon + "&units=imperial&appid=" + apiKey).then(function(response) {
+    fetch("https://api.openweathermap.org/data/2.5/onecall?lat=" + lat + "&lon=" + lon + "&units=imperial&appid=" + apiKey).then(function(response) {
         response.json().then(function(data) {
             displayCurrentWeather(data, cityName);
             weatherForecast(data);
